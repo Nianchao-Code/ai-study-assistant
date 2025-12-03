@@ -1283,8 +1283,8 @@ export default function DocumentPage() {
                             className="rounded-xl border border-white/40 bg-white/80 px-4 py-2 text-sm text-black hover:bg-white/90 shadow-lg disabled:opacity-60 flex items-center gap-2"
                             title="Generate new quiz questions"
                           >
-                            <RotateCw className={`h-4 w-4 ${isRegeneratingQuiz ? 'animate-spin' : ''}`} />
-                            {isRegeneratingQuiz ? "Regenerating..." : "Refresh Quiz"}
+                            <Sparkles className={`h-4 w-4 ${isRegeneratingQuiz ? 'animate-pulse' : ''}`} />
+                            {isRegeneratingQuiz ? "Regenerating..." : "Regenerate Quiz"}
                           </Button>
                         </div>
                       </div>
@@ -1416,17 +1416,18 @@ export default function DocumentPage() {
                       <div className="flex gap-3 justify-center">
                         <Button
                           onClick={handleRestartQuiz}
-                          className="rounded-xl border border-white/30 bg-white/20 px-6 py-3 text-white hover:bg-white/30"
+                          className="rounded-xl border border-white/40 bg-white/80 px-6 py-3 text-black hover:bg-white/90 shadow-lg flex items-center gap-2"
                         >
-                          Restart quiz
+                          <RotateCw className="h-4 w-4" />
+                          Restart Quiz
                         </Button>
                         <Button
                           onClick={handleRegenerateQuiz}
                           disabled={isRegeneratingQuiz}
                           className="rounded-xl border border-white/40 bg-white/80 px-6 py-3 text-black hover:bg-white/90 shadow-lg disabled:opacity-60 flex items-center gap-2"
                         >
-                          <RotateCw className={`h-4 w-4 ${isRegeneratingQuiz ? 'animate-spin' : ''}`} />
-                          {isRegeneratingQuiz ? "Regenerating..." : "Refresh Quiz"}
+                          <Sparkles className={`h-4 w-4 ${isRegeneratingQuiz ? 'animate-pulse' : ''}`} />
+                          {isRegeneratingQuiz ? "Regenerating..." : "Regenerate Quiz"}
                         </Button>
                       </div>
                     </div>
