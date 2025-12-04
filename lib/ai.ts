@@ -820,10 +820,17 @@ Return ONLY the JSON object, no markdown code blocks, no additional text.`;
     // Estimate input tokens (video analysis uses more tokens)
     const estimatedInputTokens = estimateTokens(prompt) + 10000; // Add estimate for video content
 
-    // Generate content by including YouTube URL in the prompt
-    // Note: fileData format does NOT support YouTube URLs directly (requires gs:// or File API URI)
-    // Gemini can access and analyze public YouTube videos when the URL is included in the prompt text
-    const result = await model.generateContent(prompt);
+    // Generate content using fileData format for YouTube videos
+    // Gemini can directly access and analyze public YouTube videos via fileData
+    // Note: No mimeType needed for YouTube URLs (only fileUri)
+    const result = await model.generateContent([
+      {
+        fileData: {
+          fileUri: youtubeUrl,
+        },
+      },
+      { text: prompt },
+    ]);
     const response = await result.response;
     const text = response.text().trim();
 
