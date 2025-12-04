@@ -799,17 +799,19 @@ export default function DashboardPage() {
                   </div>
                   {error && <p className="text-xs text-red-200">{error}</p>}
                   {processingStatus && (
-                    <div className="flex items-center justify-between gap-3 rounded-lg bg-white/10 px-3 py-2 border border-white/20">
+                    <div className="rounded-lg bg-white/10 px-3 py-2 border border-white/20">
                       <div className="flex items-center gap-2">
-                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"></div>
+                        <div className="h-4 w-4 flex-shrink-0 animate-spin rounded-full border-2 border-white/30 border-t-white"></div>
                         <p className="text-xs text-white/80">{processingStatus}</p>
                       </div>
-                      <button
-                        onClick={cancelProcessing}
-                        className="text-xs text-red-300 hover:text-red-200 hover:underline transition"
-                      >
-                        Cancel
-                      </button>
+                      <div className="mt-2 ml-6">
+                        <button
+                          onClick={cancelProcessing}
+                          className="text-xs text-red-300 hover:text-red-200 hover:underline transition"
+                        >
+                          Cancel processing
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>
