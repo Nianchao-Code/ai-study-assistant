@@ -173,6 +173,30 @@ export default function DashboardPage() {
     [clearPolling, fetchDocuments, router]
   );
 
+  // Cancel processing function
+  const cancelProcessing = useCallback(async () => {
+    if (!pendingDocumentId) return;
+    
+    // Stop polling first
+    clearPolling();
+    
+    // Delete the processing document
+    try {
+      await fetch(`/api/documents/${pendingDocumentId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      // Remove from documents list
+      setDocuments((prev) => prev.filter((doc) => doc.id !== pendingDocumentId));
+    } catch (error) {
+      console.error("Error canceling document:", error);
+    }
+    
+    // Clear states
+    setPendingDocumentId(null);
+    setProcessingStatus("");
+  }, [pendingDocumentId, clearPolling]);
+
   // YouTube validation function
   const validateYouTubeUrl = useCallback(async (url: string) => {
     if (!url.trim()) {
@@ -775,7 +799,18 @@ export default function DashboardPage() {
                   </div>
                   {error && <p className="text-xs text-red-200">{error}</p>}
                   {processingStatus && (
-                    <p className="text-xs text-white/80">{processingStatus}</p>
+                    <div className="flex items-center justify-between gap-3 rounded-lg bg-white/10 px-3 py-2 border border-white/20">
+                      <div className="flex items-center gap-2">
+                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"></div>
+                        <p className="text-xs text-white/80">{processingStatus}</p>
+                      </div>
+                      <button
+                        onClick={cancelProcessing}
+                        className="text-xs text-red-300 hover:text-red-200 hover:underline transition"
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   )}
                 </div>
               </CardContent>
@@ -1348,7 +1383,7 @@ export default function DashboardPage() {
                 <h4 className="text-sm font-medium text-white mb-2">📋 Usage Limits</h4>
                 <ul className="space-y-1 text-sm text-white/80">
                   <li>• 3 videos per day per user</li>
-                  <li>• Maximum video length: 60 minutes</li>
+                  <li>• Maximum video length: 30 minutes</li>
                   <li>• Recommended: Educational lectures & tutorials</li>
                 </ul>
                 {youtubeVideoInfo && (

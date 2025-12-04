@@ -20,7 +20,7 @@ const YOUTUBE_API_BASE = "https://www.googleapis.com/youtube/v3";
 
 // Limits
 const DAILY_LIMIT = 3; // Maximum videos per user per day
-const MAX_DURATION_SECONDS = 60 * 60; // 60 minutes in seconds
+const MAX_DURATION_SECONDS = 30 * 60; // 30 minutes in seconds
 
 // Educational category IDs from YouTube
 const EDUCATIONAL_CATEGORIES = ["27", "28", "26"]; // Education, Science & Tech, Howto & Style
@@ -292,4 +292,5 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
 
